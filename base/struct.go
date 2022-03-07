@@ -24,6 +24,16 @@ func main() {
 	s4 := newChip(4, "s4")
 	s4.addId()
 	fmt.Println(s1, s2, s3, s4)
+	fmt.Println("==============")
+
+	v := Vertex{"小宝", "大宝"}
+	v.Name2 = "猪宝"
+	fmt.Println(v.Name2)
+}
+
+type Vertex struct {
+	Name1 string
+	Name2 string
 }
 
 type chip struct {
