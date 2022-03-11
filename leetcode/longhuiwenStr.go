@@ -9,7 +9,28 @@ package main
 //输出："bb"
 
 func main() {
-	longestPalindrome("aabaa")
+	//longestPalindrome("aabaa")
+	makeStr("aabbccd")
+}
+
+// 包含大小写的
+func makeStr(str string) int {
+	hash := map[int32]int{}
+	for _, v := range str {
+		hash[v]++
+	}
+	res := 0
+	flag := 0
+	for _, v := range hash {
+		if v%2 == 0 {
+			res += v
+		} else {
+			res -= 1
+			flag = 1
+		}
+
+	}
+	return res + flag
 }
 
 func longestPalindrome(s string) string {

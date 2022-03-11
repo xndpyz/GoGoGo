@@ -14,7 +14,7 @@ func main() {
 
 	//t3()
 
-	t4()
+	t5()
 }
 
 func t2() {
@@ -65,6 +65,31 @@ func t4() {
 	lockFunc(&lock)
 	for {
 	} // 程序一直阻塞在这
+}
+
+func t5() {
+	flag := make(chan bool)
+	message := make(chan int)
+
+	go child(flag, message)
+	for i := 0; i < 10; i++ {
+		message <- i
+	}
+	flag <- true
+	fmt.Println("主线程结束")
+}
+
+func child(flag chan bool, mes chan int) {
+	t := time.Tick(time.Second)
+	for _ = range t {
+		select {
+		case m := <-mes:
+			fmt.Println("接收到值：", m)
+		case <-flag:
+			fmt.Println("子线程结束")
+			//return
+		}
+	}
 }
 
 func lockFunc(lock *sync.RWMutex) {
